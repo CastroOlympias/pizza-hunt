@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 
 const PizzaSchema = new Schema({
     pizzaName: {
-        type: toString
+        type: String
     },
     createdBy: {
         type: String
