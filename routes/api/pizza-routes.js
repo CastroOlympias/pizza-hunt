@@ -1,4 +1,4 @@
-const router = require('express').Routher();
+const router = require('express').Router();
 const {
     getAllPizza,
     getPizzaById,

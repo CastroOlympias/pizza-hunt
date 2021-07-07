@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 app.use(require('./routes'));
 
-mongoose.connect(proces.env.MONGDODB_URI || 'mongodb://localhost/pizza-hunt', {
+mongoose.connect(process.env.MONGDODB_URI || 'mongodb://localhost/pizza-hunt', {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true

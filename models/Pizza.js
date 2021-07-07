@@ -2,23 +2,24 @@ const { Schema, model } = require('mongoose');
 
 const PizzaSchema = new Schema({
     pizzaName: {
-        type: String
+      type: String
     },
     createdBy: {
-        type: String
+      type: String
     },
     createdAt: {
-        type: date,
-        default:Date.now
+      type: Date,
+      default: Date.now
     },
     size: {
-        type: String,
+      type: String,
+      default: 'Large'
     },
     toppings: []
-})
+  });
 
 // create the Pizza model using tyhe pizza Schema
-const Pizza = model('Pizza', Pizza,Schema)
+const Pizza = model('Pizza', PizzaSchema)
 
 // export the Pizza model
 module.exports = Pizza;
