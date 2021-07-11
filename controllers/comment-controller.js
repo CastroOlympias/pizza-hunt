@@ -24,6 +24,12 @@ const commentController = {
 
   // add reply to comment
   addReply({ params, body }, res) {
+    Comment.findOneAndUpdate(
+      { _id: params.commentId },
+      { $push: { replies: body } },
+      { new: true, runValidators: true }
+    )
+
     Comment.findOneAndUpdate({ _id: params.commentId }, { $push: { replies: body } }, { new: true })
       .then(dbPizzaData => {
         if (!dbPizzaData) {
