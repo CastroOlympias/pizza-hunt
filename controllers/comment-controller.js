@@ -1,6 +1,17 @@
 const { Comment, Pizza } = require('../models');
 
 const commentController = {
+  getCommentById({ params }, res) {
+    console.log('********************', params)
+    Comment.findOne({ _id: params.id })
+      .select('-__v')
+      .then(dbPizzaData => res.json(dbPizzaData))
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(400);
+      });
+  },
+
   // add comment to pizza
   addComment({ params, body }, res) {
     console.log(body);
