@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { authMiddleware } = require('./utils/Authentication.js')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,7 +23,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/pizza-hunt', {
         // fix found at https://stackoverflow.com/questions/69840504/mongooseserverselectionerror-connect-econnrefused-127017
         family: 4,
 })
-.then(db => console.log('DB is connected'))
+        .then(db => console.log('DB is connected'))
 
 // Use this to log mongo queries being executed!
 mongoose.set('debug', true);
