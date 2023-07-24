@@ -1,5 +1,6 @@
 const { UserModel } = require('../models');
 const { signToken } = require('../utils/Authentication')
+const bcrypt = require('bcrypt');
 const userController = {
   // get all pizzas
   getAllUsers(req, res) {
@@ -40,17 +41,38 @@ const userController = {
     return { token, newUser }
   },
 
-  loginToUser({ body }, res) {
-    const loginUser = UserModel.findOne({ eMail: body.eMail })
+  async loginToUser({ body }, res) {
+    const loginUser = await UserModel.findOne({ eMail: body.eMail })
       .select('-__v')
+
       .sort({ _id: -1 })
       .then(userData => res.json(userData))
       .catch(err => {
         console.log(err);
         res.sendStatus(400);
       });
+
+    const dbPassword = '$2b$10$N5A6uCborEuBfTlBu0qjtuAvftKgQOt3IGqSK8sULquGs6t5DpOu6'
+    const old = '123'
+    const anotherOne = old
+
+    const salt = 10
+    const hash = await bcrypt.hash(body.password, salt)
+
+    // console.log(hash)
+
+    const checkPassword = async function () {
+      console.log("password match? ", await bcrypt.compare(old, anotherOne))
+      // return bcrypt.compareSync(dbPassword, dbPassword)
+    }
+    checkPassword()
+
+
+
+
+    // console.log('******loginUser', loginUser, '******')
     const token = signToken(loginUser);
-    console.log(token)
+    // console.log(token)
     return { token, loginUser };
   }
   // // update pizza by id
